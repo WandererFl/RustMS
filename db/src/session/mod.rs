@@ -46,7 +46,7 @@ pub struct NewSession<'a> {
 impl<'a> NewSession<'a> {
     /// Create and save a new session.
     pub fn create(self) -> QueryResult<SessionWrapper> {
-        SessionWrapper::from(repository::create_session(self)?)
+        SessionWrapper::from(create_session(self)?)
     }
 }
 

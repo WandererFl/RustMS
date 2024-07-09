@@ -1,5 +1,5 @@
-use aes::block_cipher::generic_array::GenericArray;
-use aes::block_cipher::{BlockCipher, NewBlockCipher};
+use aes::cipher::generic_array::GenericArray;
+use aes::cipher::{BlockEncrypt, KeyInit};
 use aes::Aes256;
 
 use crate::constants;
