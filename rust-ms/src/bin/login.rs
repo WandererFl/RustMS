@@ -7,7 +7,7 @@ use net::listener::ClientConnectionListener;
 fn main() {
     println!("Starting up...");
 
-    // Shut down the server somewhat gracefuly; not a fan of seeing an error on ctrl+c
+    // Shut down the server somewhat gracefully; not a fan of seeing an error on ctrl+c
     ctrlc::set_handler(move || {
         println!("Shutting down...");
         exit(0);
@@ -16,8 +16,12 @@ fn main() {
 
     let listener = TcpListener::bind("0.0.0.0:8484").unwrap();
 
+    handle_listener(listener);
+}
+
+fn handle_listener(listener: TcpListener) {
     for stream in listener.incoming() {
-        println!("Incoming connection...");
+        println!("Incoming login connection...");
         let stream = stream.unwrap();
 
         thread::spawn(move || {

@@ -7,3 +7,7 @@ members = [
     "net",
     "db"
 ]
+
+resolver = "2"
+
+default-members = ["rust-ms"]
