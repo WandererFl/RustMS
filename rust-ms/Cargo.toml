@@ -3,12 +3,11 @@ name = "rust-ms"
 version = "0.1.0"
 authors = ["David Goldstein <goldstein.g.david@gmail.com>"]
 edition = "2021"
-default-run = "login"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-ctrlc = "3.1.4"
-crypt = { path = "../crypt"}
-packet = { path = "../packet" }
 net = { path = "../net" }
+runtime = { path = "../runtime" }
+tokio = { version = "1", features = ["full"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+ctrlc = "3"

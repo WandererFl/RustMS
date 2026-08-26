@@ -1,11 +1,16 @@
 [workspace]
+resolver = "2"
 
 members = [
     "rust-ms",
+    "integration-harness",
     "packet",
     "crypt",
     "net",
-    "db"
+    "db",
+    "runtime",
+    "tools/map-data-validator",
+    "game-data",
 ]
 
 resolver = "2"

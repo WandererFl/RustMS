@@ -8,6 +8,7 @@ pub enum SendOpcode {
     ServerList = 0x0A,
     NewCharacter = 0x0E,
     DeleteCharacter = 0x0F,
+    ChangeChannel = 0x10,
     CharList = 0x0B,
     ServerIp = 0x0C,
     CharNameResponse = 0x0D,
@@ -20,6 +21,12 @@ pub enum SendOpcode {
     FamilyInfo = 0x5F,
     FamilyList = 0x64,
     SetField = 0x7D,
+    Whisper = 0x87,
+    SpawnPlayer = 0xA0,
+    RemovePlayerFromMap = 0xA1,
+    ChatText = 0xA2,
+    MovePlayer = 0xB9,
+    SpawnNpc = 0x101,
 
     KeyMap = 0x14F,
 }

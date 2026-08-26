@@ -10,10 +10,11 @@ edition = "2021"
 packet = { path = "../packet" }
 crypt = { path = "../crypt" }
 db = { path = "../db" }
+game-data = { path = "../game-data" }
 bufstream = "0.1.4"
 rand = "0.7.3"
 num = "0.2"
-num-derive = "0.3"
+num-derive = "0.4.2"
 num-traits = "0.2"
 serde_derive = "^1.0.8"
 serde = "^1.0.8"

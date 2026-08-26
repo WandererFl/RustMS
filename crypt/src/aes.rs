@@ -1,5 +1,4 @@
-use aes::cipher::generic_array::GenericArray;
-use aes::cipher::{BlockEncrypt, KeyInit};
+use aes::cipher::{generic_array::GenericArray, BlockEncrypt, KeyInit};
 use aes::Aes256;
 
 use crate::constants;
@@ -28,18 +27,18 @@ impl MapleAES {
 
         let mut key = self.get_trimmed_user_key();
         let key = GenericArray::from_mut_slice(&mut key);
-        let cipher = Aes256::new(&key);
+        let cipher = Aes256::new(key);
 
         while remaining > 0 {
             let mut iv = self.repeat_bytes(&self.iv, 4);
-            let mut iv = GenericArray::from_mut_slice(&mut iv);
+            let iv = GenericArray::from_mut_slice(&mut iv);
 
             if remaining < llength {
                 llength = remaining;
             }
             for i in start..(start + llength) {
                 if (i - start) % iv.len() == 0 {
-                    cipher.encrypt_block(&mut iv);
+                    cipher.encrypt_block(iv);
                 }
                 data[i] ^= iv[(i - start) % iv.len()];
             }

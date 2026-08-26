@@ -5,6 +5,12 @@ RustMS is an attempt at implementing the Maplestory server end from scratch in R
 It's very work-in-progress and really only barely off the ground at this point, but it's been a fun evening/weekend side project so far!  
 
 ![Getting places](img/sp_ship.png)
+
+### Update: 2026
+This project was abandoned a few months after I initially started it, but I've revisited it now (2026/03) after feeling an itch to vibe code/explore Codex while I'm on vacation and away from work-work. The initial purpose of this project was to learn Rust, but it doesn't look like I'm doing a whole lot of that in this revisit; instead, I'm exploring how I can vibe code more sustainably (and also get a feel for ecosystems outside of Claude Code).
+
+The first thing that came to me is that I need to build some test-rails to guide implementation, hence I "built" an integration harness and also moved the entire HeavenClient project into the repository so that I can do manual verification as well.
+
 ## Motivation
 The motivation behind this project is two-fold:
 
@@ -13,9 +19,6 @@ When I started this project, I knew next to no Rust, however I was quite interes
 The second motivation behind this project comes from the fact that Maplestory has a special place in my heart as the game that probably defined my childhood. I knew people had written and ran their own servers before but for the longest time it hadn't hit me that a lot of these servers had their source up on Github. Having looked at a few servers such as [HeavenMS](https://github.com/ronancpl/HeavenMS) and [Valhalla](https://github.com/Hucaru/Valhalla), I realized that I could probably try my hand at writing my own server too and that I could probably have quite a bit of fun with it.
 
 ## Overview
-As of 23/08/2020, RustMS is still in a very early stage.
-
-** Currently on hold while school's been very unforgiving; have plans for what to do next here that I will hopefully write down soon though! **
 
 ### Crates
 The `crypt` crate provides the means for encrypting and decrypting packets using
@@ -149,7 +152,16 @@ If you would like to run RustMS, clone the repository and run the project from t
 On the first run of the server, you will likely have more output as dependencies will need to be downloaded and the project itself will build.
 
 ### Running the client
-The server on its own is not particularly interesting without a client to communicate with it. At this point in time, this server is being developed with the [Heaven Client](https://github.com/HeavenClient/HeavenClient) in mind, however in theory any V83 Maplestory client that's pointed at `localhost` should work (no promises). Clone HeavenClient and follow the README's instructions on the branch corresponding to your operating system. Note that RustMS supports encryption and hence you shouldn't disable it when building the client.
+The server on its own is not particularly interesting without a client to communicate with it. At this point in time, this server is being developed with the nested `HeavenClient` project in this repository, however in theory any V83 Maplestory client that's pointed at `localhost` should work (no promises). From the `RustMS` repo root, build the client with:
+
+```sh
+cd HeavenClient
+./build-deps.sh
+cmake -S . -B cmake-build
+cmake --build cmake-build -j"$(nproc)"
+```
+
+Note that RustMS supports encryption and hence you shouldn't disable it when building the client.
 
 Once you've built the client, run it:
 ![Run the client](img/run_client.png)
@@ -160,6 +172,15 @@ In the server's console, you should see that the handshake completed successfull
 ### Logging in
 At the time of writing this, you can type in a username and password in the client's login window and submit. The server will parse the packet and echo it in the console.
 ![Credentials Echoed](img/login.png)
+
+### Running the Integration Harness
+The integration test harness spins up a containerized postgres and pair of login/world servers.
+
+On my machine, I run the harness as follows, using `sg` to assume the `docker` user group:
+
+```
+sg docker -c 'cargo run -p integration-harness --bin harnessctl -- test'
+```
 
 
 ## Roadmap
